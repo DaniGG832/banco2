@@ -10,5 +10,10 @@ class Cliente extends Model
     use HasFactory;
 
     protected $fillable = ['dni','nombre'];
-    
+
+    public function Cuentas(){
+        
+        return $this->belongsToMany(Cuenta::class,'titulares');
+    }
+
 }
