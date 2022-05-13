@@ -25,7 +25,7 @@ class CuentaController extends Controller
      */
     public function create()
     {
-        //
+        return view('cuentas.create',['cuenta'=>new Cuenta()]);
     }
 
     /**

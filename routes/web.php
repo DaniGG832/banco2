@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\CuentaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('clientes.index');
 });
 
 Route::get('/dashboard', function () {
@@ -22,3 +24,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+
+Route::resource('clientes',ClienteController::class)->middleware(['auth'])->middleware(['auth']);
+
+Route::get('cuentas/create',[CuentaController::class,'create'])->name('cuentas.create')->middleware(['auth']);
+
+Route::post('cuentas/store',[CuentaController::class,'create'])->name('cuentas.store')->middleware(['auth']);

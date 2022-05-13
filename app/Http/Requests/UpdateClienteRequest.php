@@ -13,7 +13,7 @@ class UpdateClienteRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdateClienteRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'dni' => 'required|regex:/^\d{8}[a-zA-Z]$/|unique:clientes,dni,' . $this->cliente->id,
+            'nombre' => 'required|string',
         ];
     }
 }

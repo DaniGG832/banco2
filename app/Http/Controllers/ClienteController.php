@@ -15,7 +15,12 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        //
+        // $clientes = Cliente::all()->find(1)->nombre;
+         //$clientes = Cliente::all();
+
+        $clientes = Cliente::orderBy('id')->get();
+
+        return view('clientes.index',compact('clientes'));
     }
 
     /**
@@ -25,7 +30,10 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        //
+        $cliente = new Cliente();
+
+        return view('clientes.create',['cliente' =>$cliente]);
+
     }
 
     /**
@@ -34,9 +42,17 @@ class ClienteController extends Controller
      * @param  \App\Http\Requests\StoreClienteRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreClienteRequest $request)
+    public function store(StoreClienteRequest $request,Cliente $cliente)
     {
-        //
+
+        $cliente->fill($request->validated());
+
+        $cliente->save();
+
+        return redirect()->route('clientes.index')->with('success','Cliente creado correctamente');
+
+        // dd($cliente);
+        // dd($request);
     }
 
     /**
@@ -47,7 +63,7 @@ class ClienteController extends Controller
      */
     public function show(Cliente $cliente)
     {
-        //
+        return view('clientes.show',compact('cliente'));
     }
 
     /**
@@ -58,7 +74,8 @@ class ClienteController extends Controller
      */
     public function edit(Cliente $cliente)
     {
-        //
+        return view('clientes.edit',['cliente' =>$cliente]);
+
     }
 
     /**
@@ -70,7 +87,14 @@ class ClienteController extends Controller
      */
     public function update(UpdateClienteRequest $request, Cliente $cliente)
     {
-        //
+        //dd($request->validated());
+
+        $cliente->fill($request->validated());
+
+        $cliente->save();
+
+
+        return Redirect()->route('clientes.index')->with('success', 'cliente modificado correctamente');
     }
 
     /**
