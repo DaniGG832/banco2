@@ -41,7 +41,7 @@ class CuentaController extends Controller
         $cuenta = new Cuenta($request->validated());
         $cuenta->save();
 
-        return back();
+        return back()->with('success', 'Cuenta creada correctamente');
 
     }
 
