@@ -24,8 +24,8 @@ class StoreCuentaRequest extends FormRequest
     public function rules()
     {
         return [
-            'numero' => 'required|unique:cuentas|digits:20',
-            'cliente' => 'required'
+            'numero' => 'required|unique:cuentas,numero|digits:20',
+            
         ];
     }
 }

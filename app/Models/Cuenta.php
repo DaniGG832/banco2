@@ -9,7 +9,7 @@ class Cuenta extends Model
 {
     use HasFactory;
 
-
+    protected $fillable= ['numero'];
 
     public function Clientes()
     {

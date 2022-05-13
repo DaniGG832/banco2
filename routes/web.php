@@ -30,4 +30,4 @@ Route::resource('clientes',ClienteController::class)->middleware(['auth'])->midd
 
 Route::get('cuentas/create',[CuentaController::class,'create'])->name('cuentas.create')->middleware(['auth']);
 
-Route::post('cuentas/store',[CuentaController::class,'create'])->name('cuentas.store')->middleware(['auth']);
+Route::post('cuentas/store',[CuentaController::class,'store'])->name('cuentas.store')->middleware(['auth']);

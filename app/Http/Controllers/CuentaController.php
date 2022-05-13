@@ -36,7 +36,13 @@ class CuentaController extends Controller
      */
     public function store(StoreCuentaRequest $request)
     {
-        //
+        //dd($request->validated());
+
+        $cuenta = new Cuenta($request->validated());
+        $cuenta->save();
+
+        return back();
+
     }
 
     /**
