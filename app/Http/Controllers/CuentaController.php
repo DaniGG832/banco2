@@ -15,7 +15,11 @@ class CuentaController extends Controller
      */
     public function index()
     {
-        //
+
+        $cuentas = Cuenta::all();
+        //dd($cuentas);
+
+        return view('cuentas.index',compact('cuentas'));
     }
 
     /**
@@ -25,7 +29,10 @@ class CuentaController extends Controller
      */
     public function create()
     {
-        return view('cuentas.create',['cuenta'=>new Cuenta()]);
+        $nCuenta=mt_rand(1,9999999999);
+        //dd($nCuenta);
+        return view('cuentas.create',['cuenta'=>new Cuenta()
+                                        ,'nCuenta'=>$nCuenta]);
     }
 
     /**
@@ -53,7 +60,7 @@ class CuentaController extends Controller
      */
     public function show(Cuenta $cuenta)
     {
-        //
+        return view('cuentas.show',compact('cuenta'));
     }
 
     /**

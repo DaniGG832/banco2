@@ -24,7 +24,7 @@
                    @method('POST') 
                 
                   <label for="numero">Numero de cuenta</label>
-                  <input type="number" name="numero" id="numero" autofocus value="{{old('numero')}}">
+                  <input class="w-64" type="number" name="numero" id="numero" autofocus value="{{old('numero','1234567890'."$nCuenta")}}">
                   
                   @error('numero')
                   <p class="text-red-500 text-sm mt-1">
