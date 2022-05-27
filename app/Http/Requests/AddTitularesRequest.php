@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCuentaRequest extends FormRequest
+class AddTitularesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class StoreCuentaRequest extends FormRequest
     public function rules()
     {
         return [
-            'numero' => 'required|unique:cuentas,numero|digits:20',
-            'titular'=>'required|exists:clientes,id',
-            
+            'titulares'=>'exists:clientes,id'
         ];
     }
 }

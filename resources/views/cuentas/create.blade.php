@@ -34,6 +34,22 @@
                 
                 
                   <br>
+                  Agregar titular
+                  <select name="titular" id="titular">
+                    <option value=""></option>
+                    @foreach ($clientes as $cliente)
+
+                    <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
+
+                    @endforeach
+
+                  </select>
+                  @error('titular')
+                  <p class="text-red-500 text-sm mt-1">
+                      {{ $message }}
+                  </p>
+                @enderror
+                  <br>
                 
                   <button type="submit">Enviar</button>
                 

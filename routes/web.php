@@ -35,3 +35,7 @@ Route::post('cuentas/store',[CuentaController::class,'store'])->name('cuentas.st
 Route::get('cuentas',[CuentaController::class,'index'])->name('cuentas.index')->middleware(['auth']);
 
 Route::get('cuentas/{cuenta}',[CuentaController::class,'show'])->name('cuentas.show')->middleware(['auth']);
+
+Route::get('cuentas/{cuenta}/titulares',[CuentaController::class,'addTitulares'])->name('cuentas.addTitulares')->middleware(['auth']);
+
+Route::post('cuentas/{cuenta}/titulares',[CuentaController::class,'agregarTitulares'])->name('cuentas.agregarTitulares')->middleware(['auth']);
