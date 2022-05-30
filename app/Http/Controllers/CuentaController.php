@@ -22,7 +22,7 @@ class CuentaController extends Controller
         $cuentas = Cuenta::all();
         //dd($cuentas);
 
-        return view('cuentas.index',compact('cuentas'));
+        return view('cuentas.index', compact('cuentas'));
     }
 
     /**
@@ -32,8 +32,8 @@ class CuentaController extends Controller
      */
     public function create()
     {
-        
-        $nCuenta=mt_rand(1,9999999999);
+
+        $nCuenta = mt_rand(1, 9999999999);
         //dd($nCuenta);
 
 
@@ -41,9 +41,10 @@ class CuentaController extends Controller
 
         //dd($clientes);
 
-        return view('cuentas.create',['cuenta'=>new Cuenta()
-                                        ,'nCuenta'=>$nCuenta,
-                                    'clientes'=>$clientes]);
+        return view('cuentas.create', [
+            'cuenta' => new Cuenta(), 'nCuenta' => $nCuenta,
+            'clientes' => $clientes
+        ]);
     }
 
     /**
@@ -61,10 +62,9 @@ class CuentaController extends Controller
         $cuenta = new Cuenta($request->validated());
         $cuenta->save();
 
-         $cuenta->clientes()->attach($request->validated('titular'));
+        $cuenta->clientes()->attach($request->validated('titular'));
 
         return back()->with('success', 'Cuenta creada correctamente');
-
     }
 
     /**
@@ -75,7 +75,7 @@ class CuentaController extends Controller
      */
     public function show(Cuenta $cuenta)
     {
-        return view('cuentas.show',compact('cuenta'));
+        return view('cuentas.show', compact('cuenta'));
     }
 
     /**
@@ -114,11 +114,11 @@ class CuentaController extends Controller
 
     public function addTitulares(Cuenta $cuenta)
     {
-        
-        return view('cuentas.addtitulares',['cuenta'=>$cuenta,
-                                            'clientes'=>Cliente::all()]);
 
-
+        return view('cuentas.addtitulares', [
+            'cuenta' => $cuenta,
+            'clientes' => Cliente::all()
+        ]);
     }
 
 
@@ -128,59 +128,55 @@ class CuentaController extends Controller
         //dd( $cuenta->clientes);
         //dd(!$cuenta->clientes->contains($request->agregar));
 
-        if ($request->agregar  ) {
+        if ($request->agregar) {
 
             if (!$cuenta->clientes->contains($request->agregar)) {
                 $cuenta->Clientes()->attach($request->agregar);
 
                 return back()->with('success', 'titulular  agregado correctamente');
-            }else{
+            } else {
                 return back()->with('success', 'El cliente ya es titular de esta cuenta');
             }
+        } elseif ($request->titulares) {
 
-            
-
-        }elseif ($request->titulares) {
-            
             //dd($request->titulares);
             $cuenta->Clientes()->syncWithoutDetaching($request->titulares);
 
             return back()->with('success', 'titululares  agregados correctamente');
-
-        }else
-        {
-            return back()->with('success', 'No se ha agregado ningun titular');
+        } else {
+            return back()->with('error', 'No se ha agregado ningun titular');
         }
-    
+
 
         //dd($request->titulares,$request->agregar);
         //$cuenta->Clientes()->attach(1);
-        
+
     }
 
     public function bajaTitulares(Cuenta $cuenta)
     {
-        
-        return view('cuentas.bajaTitulares',['cuenta'=>$cuenta,
-                                            'clientes'=>Cliente::all()]);
 
-
+        return view('cuentas.bajaTitulares', [
+            'cuenta' => $cuenta,
+            'clientes' => Cliente::all()
+        ]);
     }
 
     public function darBajaTitulares(AddTitularesRequest $request, Cuenta $cuenta)
     {
+        $validado = $request->validate(['quitar'=>'required']);
 
-if ($request->quitar) {
+        if ($request->quitar) {
 
-    $valor = $cuenta->Clientes()->detach($request->quitar);
-    return back()->with('success', 'titulular  quitado correctamente');
-}
+            $valor = $cuenta->Clientes()->detach($request->quitar);
+            return back()->with('success', 'titulular  quitado correctamente');
+        }
 
         //dd($valor);
+        return back()->with('error', 'No se ha seleccionado ningun  titular');
 
 
-
-//        dd($request);
+        //        dd($request);
 
 
     }

@@ -9,6 +9,8 @@ class Movimiento extends Model
 {
     use HasFactory;
 
+    protected $fillable =['cuenta_id','importe','concepto'];
+
     public function cuenta()
     {
         return $this->belongsTo(Cuenta::class);

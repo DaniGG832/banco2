@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CuentaController;
+use App\Http\Controllers\MovimientoController;
+use App\Models\Movimiento;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +18,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->route('clientes.index');
+
+    return view('welcome');
+    //return redirect()->route('clientes.index');
 });
 
 Route::get('/dashboard', function () {
@@ -43,3 +47,6 @@ Route::post('cuentas/{cuenta}/titulares',[CuentaController::class,'agregarTitula
 Route::get('cuentas/{cuenta}/bajatitulares',[CuentaController::class,'bajaTitulares'])->name('cuentas.bajaTitulares')->middleware(['auth']);
 
 Route::post('cuentas/{cuenta}/darbajatitulares',[CuentaController::class,'darBajaTitulares'])->name('cuentas.darBajaTitulares')->middleware(['auth']);
+
+
+Route::post('movimientos/add',[MovimientoController::class,'store'])->name('movimientos.store')->middleware(['auth']);

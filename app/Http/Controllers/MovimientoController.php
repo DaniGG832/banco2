@@ -36,7 +36,19 @@ class MovimientoController extends Controller
      */
     public function store(StoreMovimientoRequest $request)
     {
-        //
+        $validado= $request->validated();
+
+        $movimiento = new Movimiento($validado);
+        
+        $movimiento->fecha = now();
+
+        $movimiento->save();
+
+        $cuenta = $request->cuenta_id;
+
+        //dd($cuenta);
+        //dd($movimiento);
+        return redirect()->route('cuentas.show',$cuenta)->with('success', 'movimineto añadido correctamente');;
     }
 
     /**

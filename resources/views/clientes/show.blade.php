@@ -20,7 +20,7 @@
 
             @forelse ($cliente->cuentas as $cuenta)
             <li>{{ $cuenta->numero }} -<span><a class="text-blue-400 hover:text-green-500 ml-2"
-              href="{{ route('cuentas.show', $cuenta, false) }}">Mostar moviminetos</a></span></li>
+              href="{{ route('cuentas.show', $cuenta, false) }}">Mostar Titulares</a></span></li>
             @empty
             <span class="text-blue-700">No tiene cuentas asociadas</span>
             @endforelse
@@ -28,6 +28,10 @@
 
           </ul>
 
+<br>
+        
+
+          
         </div>
       </div>
     </div>
