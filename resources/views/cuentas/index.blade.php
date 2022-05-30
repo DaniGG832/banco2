@@ -30,6 +30,9 @@
 
                 <th class="p-3 text-left">Add Clientes</th>
 
+                <th class="p-3 text-left">Baja Clientes</th>
+                
+
 
               </tr>
             </thead>
@@ -61,6 +64,13 @@
                     <a href="{{ route('cuentas.addTitulares', $cuenta, false) }}"
                       class="text-gray-100 hover:text-green-400 mr-2">
                       <i class="material-icons-outlined text-base">addClientes</i>
+
+                  </td>
+                  <td class="p-3 bg-blue-700 ">
+
+                    <a href="{{ route('cuentas.bajaTitulares', $cuenta, false) }}"
+                      class="text-gray-100 hover:text-green-400 mr-2">
+                      <i class="material-icons-outlined text-base">baja Clientes</i>
 
                   </td>
                 </tr>

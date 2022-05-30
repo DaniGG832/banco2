@@ -132,6 +132,8 @@ class CuentaController extends Controller
 
             if (!$cuenta->clientes->contains($request->agregar)) {
                 $cuenta->Clientes()->attach($request->agregar);
+
+                return back()->with('success', 'titulular  agregado correctamente');
             }else{
                 return back()->with('success', 'El cliente ya es titular de esta cuenta');
             }
@@ -143,6 +145,8 @@ class CuentaController extends Controller
             //dd($request->titulares);
             $cuenta->Clientes()->syncWithoutDetaching($request->titulares);
 
+            return back()->with('success', 'titululares  agregados correctamente');
+
         }else
         {
             return back()->with('success', 'No se ha agregado ningun titular');
@@ -151,6 +155,33 @@ class CuentaController extends Controller
 
         //dd($request->titulares,$request->agregar);
         //$cuenta->Clientes()->attach(1);
-        return back()->with('success', 'titulular  agregado correctamente');
+        
+    }
+
+    public function bajaTitulares(Cuenta $cuenta)
+    {
+        
+        return view('cuentas.bajaTitulares',['cuenta'=>$cuenta,
+                                            'clientes'=>Cliente::all()]);
+
+
+    }
+
+    public function darBajaTitulares(AddTitularesRequest $request, Cuenta $cuenta)
+    {
+
+if ($request->quitar) {
+
+    $valor = $cuenta->Clientes()->detach($request->quitar);
+    return back()->with('success', 'titulular  quitado correctamente');
+}
+
+        //dd($valor);
+
+
+
+//        dd($request);
+
+
     }
 }
