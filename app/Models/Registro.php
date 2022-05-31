@@ -9,8 +9,14 @@ class Registro extends Model
 {
     use HasFactory;
 
+    
     public function operacion()
     {
-        $this->belongsTo(Operancion::class);
+        return $this->belongsTo(Operacion::class);
+    }
+
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class);
     }
 }

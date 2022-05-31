@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreClienteRequest;
 use App\Http\Requests\UpdateClienteRequest;
 use App\Models\Cliente;
+use App\Models\Operacion;
+use App\Models\Registro;
+
 use Nette\Utils\Json;
+use PhpParser\Node\Stmt\Return_;
 
 class ClienteController extends Controller
 {
@@ -16,11 +20,16 @@ class ClienteController extends Controller
      */
     public function index()
     {
+
+
         $clientes = Cliente::orderBy('id','desc')->with('cuentas')->get();
 
         //$clientes = Cliente::with('cuentas')->find(2);
 
         //dd(json_decode( $clientes));
+
+        // convierte en un array
+        //dd($clientes->toArray());   
         
         //$cliente = Cliente::all()->find(1)->nombre;
          //$clientes = Cliente::all();
@@ -115,4 +124,27 @@ class ClienteController extends Controller
     {
         //
     }
+
+
+    public function pruebas()
+    {
+
+
+        $operacion = Operacion::all();
+
+        $registro = Registro::all();
+
+        //return ($registro->find(1)->operacion);
+        //return ($operacion->find(1)->registros->find(1)->cliente->cuentas[0]->clientes);
+
+
+        $clientes = Cliente::orderBy('id','desc')->with('cuentas')->get();
+        $operacion = Operacion::find(1);
+
+        
+        //return $clientes->find(2)->cuentas;
+        return $clientes->find(1)->cuentas;
+    }
+
+
 }

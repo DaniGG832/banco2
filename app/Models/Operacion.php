@@ -13,6 +13,6 @@ class Operacion extends Model
     
     public function registros()
     {
-        $this->hasMany(Registro::class);
+        return $this->hasMany(Registro::class);
     }
 }

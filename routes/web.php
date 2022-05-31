@@ -50,3 +50,5 @@ Route::post('cuentas/{cuenta}/darbajatitulares',[CuentaController::class,'darBaj
 
 
 Route::post('movimientos/add',[MovimientoController::class,'store'])->name('movimientos.store')->middleware(['auth']);
+
+Route::get('pruebas',[ClienteController::class,'pruebas'])->name('pruebas')->middleware(['auth']);
