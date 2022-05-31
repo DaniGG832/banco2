@@ -30,6 +30,9 @@
             <p>cuenta: <span class="text-blue-700">{{ $cuenta->numero }}</span></p>
             <br>
 
+            <p>Saldo: <span class="text-blue-500">{{ $cuenta->movimientos->sum('importe') }} €</span></p>
+            <br>
+
             <p>Movimientos</p>
 
   <br>

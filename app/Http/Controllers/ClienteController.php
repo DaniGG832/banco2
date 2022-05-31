@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreClienteRequest;
 use App\Http\Requests\UpdateClienteRequest;
 use App\Models\Cliente;
+use Nette\Utils\Json;
 
 class ClienteController extends Controller
 {
@@ -15,10 +16,16 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        // $clientes = Cliente::all()->find(1)->nombre;
+        $clientes = Cliente::orderBy('id','desc')->with('cuentas')->get();
+
+        //$clientes = Cliente::with('cuentas')->find(2);
+
+        //dd(json_decode( $clientes));
+        
+        //$cliente = Cliente::all()->find(1)->nombre;
          //$clientes = Cliente::all();
 
-        $clientes = Cliente::orderBy('id')->get();
+        //$clientes = Cliente::orderBy('id')->get();
 
         return view('clientes.index',compact('clientes'));
     }
@@ -31,6 +38,7 @@ class ClienteController extends Controller
     public function create()
     {
         $cliente = new Cliente();
+        
 
         return view('clientes.create',['cliente' =>$cliente]);
 

@@ -75,6 +75,16 @@ class CuentaController extends Controller
      */
     public function show(Cuenta $cuenta)
     {
+        
+        //$cuenta = Cuenta::with('movimientos')->find($cuenta->id);
+
+        //dd(json_decode( $cuenta));
+
+        //dd($cuenta->movimientos);
+
+
+        //dd($cuenta->movimientos->withsum('importe'));
+        
         return view('cuentas.show', compact('cuenta'));
     }
 
@@ -135,7 +145,7 @@ class CuentaController extends Controller
 
                 return back()->with('success', 'titulular  agregado correctamente');
             } else {
-                return back()->with('success', 'El cliente ya es titular de esta cuenta');
+                return back()->with('error', 'El cliente ya es titular de esta cuenta');
             }
         } elseif ($request->titulares) {
 
@@ -156,6 +166,8 @@ class CuentaController extends Controller
     public function bajaTitulares(Cuenta $cuenta)
     {
 
+
+
         return view('cuentas.bajaTitulares', [
             'cuenta' => $cuenta,
             'clientes' => Cliente::all()
@@ -166,14 +178,19 @@ class CuentaController extends Controller
     {
         $validado = $request->validate(['quitar'=>'required']);
 
-        if ($request->quitar) {
+        //dd($validado['quitar']);
+        //dd($cuenta->Clientes->count());
+
+        if ($cuenta->Clientes->count()>1 && $validado['quitar']) {
 
             $valor = $cuenta->Clientes()->detach($request->quitar);
             return back()->with('success', 'titulular  quitado correctamente');
+        }else{
+
+            return back()->with('error', 'Es obligatorio un titular por cuenta');
         }
 
         //dd($valor);
-        return back()->with('error', 'No se ha seleccionado ningun  titular');
 
 
         //        dd($request);
