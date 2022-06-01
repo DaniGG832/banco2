@@ -19,4 +19,9 @@ class Registro extends Model
     {
         return $this->belongsTo(Cliente::class);
     }
+
+    public function cuenta()
+    {
+        return $this->belongsTo(Cuenta::class);
+    }
 }

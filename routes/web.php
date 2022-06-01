@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CuentaController;
 use App\Http\Controllers\MovimientoController;
+use App\Http\Controllers\RegistroController;
 use App\Models\Movimiento;
 use Illuminate\Support\Facades\Route;
 
@@ -50,5 +51,8 @@ Route::post('cuentas/{cuenta}/darbajatitulares',[CuentaController::class,'darBaj
 
 
 Route::post('movimientos/add',[MovimientoController::class,'store'])->name('movimientos.store')->middleware(['auth']);
+
+Route::get('registros',[RegistroController::class,'index'])->name('registros.index')->middleware(['auth']);
+
 
 Route::get('pruebas',[ClienteController::class,'pruebas'])->name('pruebas')->middleware(['auth']);

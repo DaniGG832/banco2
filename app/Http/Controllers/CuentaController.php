@@ -7,6 +7,8 @@ use App\Http\Requests\StoreCuentaRequest;
 use App\Http\Requests\UpdateCuentaRequest;
 use App\Models\Cliente;
 use App\Models\Cuenta;
+use App\Models\Operacion;
+use App\Models\Registro;
 use GuzzleHttp\Psr7\Request;
 
 class CuentaController extends Controller
@@ -137,17 +139,34 @@ class CuentaController extends Controller
 
         //dd( $cuenta->clientes);
         //dd(!$cuenta->clientes->contains($request->agregar));
+        //return( Operacion::where('operacion','añadir')->get());
+        
+
 
         if ($request->agregar) {
 
             if (!$cuenta->clientes->contains($request->agregar)) {
                 $cuenta->Clientes()->attach($request->agregar);
 
+            $registro = new Registro();
+            $registro->cuenta_id=$cuenta->id;
+            $registro->cliente_id=$request->agregar;
+            $registro->operacion_id=Operacion::where('operacion','agregar')->first()->id;
+            $registro->fecha_operacion=now();
+            
+            
+            $registro->save();
+            
+
+
+
+
                 return back()->with('success', 'titulular  agregado correctamente');
             } else {
                 return back()->with('error', 'El cliente ya es titular de esta cuenta');
             }
         } elseif ($request->titulares) {
+
 
             //dd($request->titulares);
             $cuenta->Clientes()->syncWithoutDetaching($request->titulares);
@@ -184,6 +203,16 @@ class CuentaController extends Controller
         if ($cuenta->Clientes->count()>1 && $validado['quitar']) {
 
             $valor = $cuenta->Clientes()->detach($request->quitar);
+
+            $registro = new Registro();
+            $registro->cuenta_id=$cuenta->id;
+            $registro->cliente_id=$request->quitar;
+            $registro->operacion_id=Operacion::where('operacion','quitar')->first()->id;
+            $registro->fecha_operacion=now();
+            
+            $registro->save();
+            
+
             return back()->with('success', 'titulular  quitado correctamente');
         }else{
 

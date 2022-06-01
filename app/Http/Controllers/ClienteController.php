@@ -132,6 +132,7 @@ class ClienteController extends Controller
 
         $operacion = Operacion::all();
 
+        return $operacion->where('operacion','quitar')->first()->id;
         $registro = Registro::all();
 
         //return ($registro->find(1)->operacion);

@@ -16,4 +16,9 @@ class Cliente extends Model
         return $this->belongsToMany(Cuenta::class,'titulares');
     }
 
+    public function registros()
+    {
+        return $this->hasMany(Registro::class);
+    }
+
 }
